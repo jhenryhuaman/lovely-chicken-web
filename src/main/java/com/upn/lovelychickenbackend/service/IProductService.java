@@ -10,4 +10,6 @@ public interface IProductService
     List<Product> findByCategory(String category) throws Exception;
 
     List<Product> findByAvailability(Boolean available) throws Exception;
+
+    List<Product> findByName(String name) throws Exception;
 }

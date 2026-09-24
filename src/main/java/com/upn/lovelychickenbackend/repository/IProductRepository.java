@@ -17,4 +17,6 @@ public interface IProductRepository
     List<Product> findByAvailability(
             @Param("available") Boolean available
     );
+
+    List<Product> findByNameContainingIgnoreCase(String name);
 }

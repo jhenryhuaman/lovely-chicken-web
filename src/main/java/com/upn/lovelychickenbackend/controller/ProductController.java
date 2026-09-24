@@ -2,9 +2,7 @@ package com.upn.lovelychickenbackend.controller;
 
 import com.upn.lovelychickenbackend.model.Product;
 import com.upn.lovelychickenbackend.service.IProductService;
-
 import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,22 +20,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll()
-            throws Exception {
-
-        return ResponseEntity.ok(
-                service.findAll()
-        );
+    public ResponseEntity<List<Product>> findAll() throws Exception {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(
-            @PathVariable Integer id
-    ) throws Exception {
-
-        return ResponseEntity.ok(
-                service.findById(id)
-        );
+    public ResponseEntity<Product> findById(@PathVariable Integer id) throws Exception {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping
@@ -45,8 +34,7 @@ public class ProductController {
             @Valid @RequestBody Product product
     ) throws Exception {
 
-        Product saved =
-                service.save(product);
+        Product saved = service.save(product);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -73,9 +61,7 @@ public class ProductController {
 
         service.delete(id);
 
-        return ResponseEntity
-                .noContent()
-                .build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/category/{category}")
@@ -95,6 +81,16 @@ public class ProductController {
 
         return ResponseEntity.ok(
                 service.findByAvailability(available)
+        );
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> findByName(
+            @RequestParam String name
+    ) throws Exception {
+
+        return ResponseEntity.ok(
+                service.findByName(name)
         );
     }
 }
