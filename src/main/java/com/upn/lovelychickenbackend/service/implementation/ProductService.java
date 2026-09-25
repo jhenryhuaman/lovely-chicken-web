@@ -33,4 +33,9 @@ public class ProductService
     public List<Product> findByAvailability(Boolean available) throws Exception {
         return repository.findByAvailability(available);
     }
+
+    @Override
+    public List<Product> findByName(String name) throws Exception {
+        return repository.findByNameContainingIgnoreCase(name);
+    }
 }
