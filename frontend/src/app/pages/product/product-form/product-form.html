@@ -1,0 +1,166 @@
+<section class="form-page">
+
+  <div class="form-container">
+
+    <div class="form-header">
+      @if (editing()) {
+      <h1>Editar producto</h1>
+      <p>Actualiza la información del producto.</p>
+      } @else {
+      <h1>Nuevo producto</h1>
+      <p>Registra un nuevo producto en Lovely Chicken.</p>
+      }
+    </div>
+
+    @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Ejemplo: 1/4 de pollo"
+        />
+
+        @if (
+        form.controls.name.touched &&
+        form.controls.name.hasError('required')
+        ) {
+        <mat-error>
+          El nombre es obligatorio.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+
+        <textarea
+          matInput
+          rows="4"
+          formControlName="description"
+          placeholder="Descripción del producto"
+        ></textarea>
+
+        @if (
+        form.controls.description.touched &&
+        form.controls.description.hasError('required')
+        ) {
+        <mat-error>
+          La descripción es obligatoria.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio</mat-label>
+
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          min="0.01"
+          formControlName="price"
+        />
+
+        @if (
+        form.controls.price.touched &&
+        form.controls.price.hasError('required')
+        ) {
+        <mat-error>
+          El precio es obligatorio.
+        </mat-error>
+        }
+
+        @if (
+        form.controls.price.touched &&
+        form.controls.price.hasError('min')
+        ) {
+        <mat-error>
+          El precio debe ser mayor que 0.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+
+        <mat-select formControlName="category">
+
+          <mat-option value="POLLO">
+            POLLO
+          </mat-option>
+
+          <mat-option value="PLATO">
+            PLATO
+          </mat-option>
+
+          <mat-option value="BEBIDA">
+            BEBIDA
+          </mat-option>
+
+          <mat-option value="PORCION">
+            PORCIÓN
+          </mat-option>
+
+          <mat-option value="PRUEBA">
+            PRUEBA
+          </mat-option>
+
+        </mat-select>
+
+        @if (
+        form.controls.category.touched &&
+        form.controls.category.hasError('required')
+        ) {
+        <mat-error>
+          La categoría es obligatoria.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="availability">
+        <mat-checkbox formControlName="available">
+          Producto disponible
+        </mat-checkbox>
+      </div>
+
+      <div class="actions">
+
+        <button
+          matButton="outlined"
+          type="button"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          matButton="filled"
+          type="submit"
+          [disabled]="form.invalid || loading()"
+        >
+          @if (loading()) {
+          Guardando...
+          } @else if (editing()) {
+          Actualizar
+          } @else {
+          Guardar
+          }
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

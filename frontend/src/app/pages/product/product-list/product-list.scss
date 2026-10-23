@@ -1,0 +1,143 @@
+.products-page {
+  padding: 32px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
+  }
+
+  p {
+    margin-top: 6px;
+    color: #666;
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+
+  h2 {
+    margin: 0 0 8px;
+  }
+
+  h3 {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  p {
+    color: #666;
+  }
+}
+
+.category {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #f3f3f3;
+  font-size: 13px;
+}
+
+.status {
+  margin-top: 8px;
+}
+
+.available,
+.unavailable {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.available {
+  background: #e8f5e9;
+}
+
+.unavailable {
+  background: #ffebee;
+}
+
+.message {
+  padding: 20px;
+  text-align: center;
+}
+
+.error {
+  color: #b00020;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.primary-button {
+  padding: 11px 18px;
+  background: #8b1e1e;
+  color: white;
+
+  &:hover {
+    background: #6d1717;
+  }
+}
+
+.secondary-button {
+  padding: 8px 14px;
+  border: 1px solid #8b1e1e;
+  color: #8b1e1e;
+
+  &:hover {
+    background: #fff2f2;
+  }
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.delete-button {
+  padding: 8px 14px;
+  border: 1px solid #c62828;
+  border-radius: 8px;
+  background: white;
+  color: #c62828;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffebee;
+  }
+}

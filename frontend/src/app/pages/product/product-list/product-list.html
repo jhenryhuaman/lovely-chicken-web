@@ -1,0 +1,54 @@
+<section class="products-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Productos</h1>
+      <p>Gestión de productos de Lovely Chicken</p>
+    </div>
+
+    <a
+      class="primary-button"
+      routerLink="/products/new"
+    >
+      + Nuevo producto
+    </a>
+
+  </div>
+
+  @if (loading()) {
+
+  <div class="message">
+    Cargando productos...
+  </div>
+
+  } @else if (errorMessage()) {
+
+  <div class="message error">
+    {{ errorMessage() }}
+  </div>
+
+  } @else {
+
+  <div class="products-grid">
+
+    @for (product of products(); track product.idProduct) {
+
+    <app-product-card
+      [product]="product"
+      (deleteRequested)="deleteProduct($event)"
+    ></app-product-card>
+
+    } @empty {
+
+    <div class="message">
+      No hay productos registrados.
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</section>

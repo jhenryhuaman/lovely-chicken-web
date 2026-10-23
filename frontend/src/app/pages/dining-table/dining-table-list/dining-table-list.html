@@ -1,0 +1,106 @@
+<section class="tables-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Mesas</h1>
+      <p>Gestión de mesas de Lovely Chicken</p>
+    </div>
+
+    <a
+      class="primary-button"
+      routerLink="/dining-tables/new"
+    >
+      + Nueva mesa
+    </a>
+
+  </div>
+
+  @if (loading()) {
+
+  <div class="message">
+    Cargando mesas...
+  </div>
+
+  } @else if (errorMessage()) {
+
+  <div class="message error">
+    {{ errorMessage() }}
+  </div>
+
+  } @else {
+
+  <div class="tables-grid">
+
+    @for (table of tables(); track table.idTable) {
+
+    <article class="table-card">
+
+      <div>
+
+        <h2>
+          Mesa {{ table.number }}
+        </h2>
+
+        <p>
+          Capacidad:
+          <strong>{{ table.capacity }} personas</strong>
+        </p>
+
+      </div>
+
+      <div>
+
+        @if (table.available) {
+
+        <span class="available">
+                Disponible
+              </span>
+
+        } @else {
+
+        <span class="unavailable">
+                Ocupada
+              </span>
+
+        }
+
+      </div>
+
+      <div class="card-actions">
+
+        <a
+          class="secondary-button"
+          [routerLink]="[
+                '/dining-tables/edit',
+                table.idTable
+              ]"
+        >
+          Editar
+        </a>
+
+        <button
+          class="delete-button"
+          type="button"
+          (click)="deleteTable(table)"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+    } @empty {
+
+    <div class="message">
+      No hay mesas registradas.
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</section>

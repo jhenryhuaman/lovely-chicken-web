@@ -1,0 +1,140 @@
+<section class="form-page">
+
+  <div class="form-card">
+
+    <div class="form-header">
+
+      @if (editing()) {
+
+      <h1>Editar mesa</h1>
+
+      <p>
+        Modifica la información de la mesa.
+      </p>
+
+      } @else {
+
+      <h1>Nueva mesa</h1>
+
+      <p>
+        Registra una nueva mesa.
+      </p>
+
+      }
+
+    </div>
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+
+    }
+
+    <form [formGroup]="form">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Número de mesa
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="1"
+          formControlName="number"
+        >
+
+        @if (
+        form.controls.number.invalid &&
+        form.controls.number.touched
+        ) {
+
+        <mat-error>
+          El número debe ser mayor a 0.
+        </mat-error>
+
+        }
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Capacidad
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="1"
+          formControlName="capacity"
+        >
+
+        @if (
+        form.controls.capacity.invalid &&
+        form.controls.capacity.touched
+        ) {
+
+        <mat-error>
+          La capacidad debe ser mayor a 0.
+        </mat-error>
+
+        }
+
+      </mat-form-field>
+
+
+      <mat-checkbox
+        formControlName="available"
+      >
+        Mesa disponible
+      </mat-checkbox>
+
+
+      <div class="form-actions">
+
+        <button
+          matButton
+          type="button"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          matButton="filled"
+          type="button"
+          [disabled]="
+            form.invalid ||
+            loading()
+          "
+          (click)="save()"
+        >
+
+          @if (loading()) {
+
+          Guardando...
+
+          } @else if (editing()) {
+
+          Actualizar
+
+          } @else {
+
+          Guardar
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

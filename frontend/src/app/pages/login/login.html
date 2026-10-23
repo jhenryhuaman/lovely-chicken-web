@@ -1,0 +1,89 @@
+<section class="login-page">
+
+  <div class="login-card">
+
+    <div class="brand">
+      <img
+        src="/images/logo-lovely.png"
+        alt="Logo Lovely Chicken"
+        class="logo"
+      />
+
+      <h1>Bienvenido</h1>
+
+      <p class="system-name">
+        Sistema de Gestión Lovely Chicken
+      </p>
+
+      <p class="slogan">
+        El verdadero sabor cajamarquino
+      </p>
+    </div>
+
+    @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <form [formGroup]="form">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+        />
+
+        @if (
+        form.controls.username.touched &&
+        form.controls.username.hasError('required')
+        ) {
+        <mat-error>
+          El usuario es obligatorio.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+
+        @if (
+        form.controls.password.touched &&
+        form.controls.password.hasError('required')
+        ) {
+        <mat-error>
+          La contraseña es obligatoria.
+        </mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        matButton="filled"
+        class="login-button"
+        type="button"
+        [disabled]="form.invalid || loading()"
+        (click)="login()"
+      >
+        @if (loading()) {
+        Ingresando...
+        } @else {
+        Iniciar sesión
+        }
+      </button>
+
+    </form>
+
+  </div>
+
+</section>

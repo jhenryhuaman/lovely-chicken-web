@@ -1,0 +1,63 @@
+<article class="product-card">
+
+  <div class="product-info">
+
+    <h2>
+      {{ product().name }}
+    </h2>
+
+    <p>
+      {{ product().description }}
+    </p>
+
+    <span class="category">
+      {{ product().category }}
+    </span>
+
+    <h3>
+      S/ {{ product().price }}
+    </h3>
+
+  </div>
+
+  <div class="status">
+
+    @if (product().available) {
+
+    <span class="available">
+        Disponible
+      </span>
+
+    } @else {
+
+    <span class="unavailable">
+        No disponible
+      </span>
+
+    }
+
+  </div>
+
+  <div class="card-actions">
+
+    <a
+      class="secondary-button"
+      [routerLink]="[
+        '/products/edit',
+        product().idProduct
+      ]"
+    >
+      Editar
+    </a>
+
+    <button
+      class="delete-button"
+      type="button"
+      (click)="requestDelete()"
+    >
+      Eliminar
+    </button>
+
+  </div>
+
+</article>

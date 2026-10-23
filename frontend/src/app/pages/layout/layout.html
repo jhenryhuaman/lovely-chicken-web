@@ -1,0 +1,76 @@
+<div class="app-shell">
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <img
+        src="/images/logo-lovely.png"
+        alt="Lovely Chicken"
+        class="brand-logo"
+      />
+
+      <div class="brand-text">
+        <strong>Lovely Chicken</strong>
+        <span>El verdadero sabor cajamarquino</span>
+      </div>
+
+    </div>
+
+    <button
+      class="logout-button"
+      type="button"
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
+
+  </header>
+
+  <div class="workspace">
+
+    <aside class="sidebar">
+
+      <div class="menu-title">
+        MENÚ
+      </div>
+
+      <nav class="navigation">
+
+        <a
+          routerLink="/products"
+          routerLinkActive="active"
+        >
+          Productos
+        </a>
+
+        <a
+          routerLink="/dining-tables"
+          routerLinkActive="active"
+        >
+          Mesas
+        </a>
+
+        <div class="nav-pending">
+          Pedidos
+          <small>Próximamente</small>
+        </div>
+
+        <div class="nav-pending">
+          Pagos
+          <small>Próximamente</small>
+        </div>
+
+      </nav>
+
+    </aside>
+
+    <main class="content">
+
+      <router-outlet></router-outlet>
+
+    </main>
+
+  </div>
+
+</div>
