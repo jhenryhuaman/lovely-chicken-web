@@ -1,0 +1,116 @@
+<section class="details-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Detalles de pedidos</h1>
+
+      <p>
+        Productos registrados en los pedidos
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <a
+        class="secondary-button"
+        routerLink="/orders"
+      >
+        ← Pedidos
+      </a>
+
+      <a
+        class="primary-button"
+        routerLink="/order-details/new"
+      >
+        + Nuevo detalle
+      </a>
+
+    </div>
+
+  </div>
+
+  @if (loading()) {
+
+  <div class="message">
+    Cargando detalles...
+  </div>
+
+  } @else if (errorMessage()) {
+
+  <div class="message error">
+    {{ errorMessage() }}
+  </div>
+
+  } @else {
+
+  <div class="details-grid">
+
+    @for (
+    detail of details();
+    track detail.idOrderDetail
+    ) {
+
+    <article class="detail-card">
+
+      <h2>
+        Pedido #{{ detail.order.idOrder }}
+      </h2>
+
+      <p>
+        <strong>Producto:</strong>
+        {{ detail.product.name }}
+      </p>
+
+      <p>
+        <strong>Cantidad:</strong>
+        {{ detail.quantity }}
+      </p>
+
+      <p>
+        <strong>Precio unitario:</strong>
+        S/ {{ detail.unitPrice }}
+      </p>
+
+      <h3>
+        Subtotal:
+        S/ {{ detail.subtotal }}
+      </h3>
+
+      <div class="card-actions">
+
+        <a
+          class="secondary-button"
+          [routerLink]="[
+                '/order-details/edit',
+                detail.idOrderDetail
+              ]"
+        >
+          Editar
+        </a>
+
+        <button
+          class="delete-button"
+          type="button"
+          (click)="deleteDetail(detail)"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+    } @empty {
+
+    <div class="message">
+      No hay detalles registrados.
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</section>

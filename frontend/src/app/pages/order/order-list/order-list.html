@@ -1,0 +1,130 @@
+<section class="orders-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Pedidos</h1>
+      <p>Gestión de pedidos de Lovely Chicken</p>
+    </div>
+
+    <div class="header-actions">
+
+      <a
+        class="secondary-button"
+        routerLink="/order-details"
+      >
+        Detalles de pedidos
+      </a>
+
+      <a
+        class="primary-button"
+        routerLink="/orders/new"
+      >
+        + Nuevo pedido
+      </a>
+
+    </div>
+
+  </div>
+
+  @if (loading()) {
+
+  <div class="message">
+    Cargando pedidos...
+  </div>
+
+  } @else if (errorMessage()) {
+
+  <div class="message error">
+    {{ errorMessage() }}
+  </div>
+
+  } @else {
+
+  <div class="orders-grid">
+
+    @for (
+    order of orders();
+    track order.idOrder
+    ) {
+
+    <article class="order-card">
+
+      <div>
+
+        <h2>
+          Pedido #{{ order.idOrder }}
+        </h2>
+
+        <p>
+          {{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}
+        </p>
+
+      </div>
+
+      <div class="data">
+
+        <p>
+          <strong>Tipo:</strong>
+          {{ order.orderType }}
+        </p>
+
+        <p>
+          <strong>Estado:</strong>
+          {{ order.status }}
+        </p>
+
+        <p>
+          <strong>Mesa:</strong>
+
+          @if (order.diningTable) {
+          Mesa {{ order.diningTable.number }}
+          } @else {
+          Sin mesa
+          }
+
+        </p>
+
+        <h3>
+          Total: S/ {{ order.total }}
+        </h3>
+
+      </div>
+
+      <div class="card-actions">
+
+        <a
+          class="secondary-button"
+          [routerLink]="[
+                '/orders/edit',
+                order.idOrder
+              ]"
+        >
+          Editar
+        </a>
+
+        <button
+          class="delete-button"
+          type="button"
+          (click)="deleteOrder(order)"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+    } @empty {
+
+    <div class="message">
+      No hay pedidos registrados.
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</section>

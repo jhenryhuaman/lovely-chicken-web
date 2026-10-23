@@ -1,0 +1,198 @@
+<section class="form-page">
+
+  <div class="form-card">
+
+    <div class="form-header">
+
+      @if (editing()) {
+
+      <h1>Editar pago</h1>
+
+      <p>
+        Actualiza la información del pago.
+      </p>
+
+      } @else {
+
+      <h1>Nuevo pago</h1>
+
+      <p>
+        Registra el pago de un pedido.
+      </p>
+
+      }
+
+    </div>
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+
+    }
+
+    <form [formGroup]="form">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Pedido
+        </mat-label>
+
+        <mat-select
+          formControlName="orderId"
+        >
+
+          <mat-option [value]="0">
+            Seleccionar pedido
+          </mat-option>
+
+          @for (
+          order of orders();
+          track order.idOrder
+          ) {
+
+          <mat-option
+            [value]="order.idOrder"
+          >
+            Pedido #{{ order.idOrder }}
+            - S/ {{ order.total }}
+          </mat-option>
+
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Monto
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="0.01"
+          step="0.01"
+          formControlName="amount"
+        >
+
+        <span matTextPrefix>
+          S/&nbsp;
+        </span>
+
+        @if (
+        form.controls.amount.invalid &&
+        form.controls.amount.touched
+        ) {
+
+        <mat-error>
+          El monto debe ser mayor a 0.
+        </mat-error>
+
+        }
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Método de pago
+        </mat-label>
+
+        <mat-select
+          formControlName="paymentMethod"
+        >
+
+          <mat-option value="EFECTIVO">
+            Efectivo
+          </mat-option>
+
+          <mat-option value="YAPE">
+            Yape
+          </mat-option>
+
+          <mat-option value="TARJETA">
+            Tarjeta
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Estado
+        </mat-label>
+
+        <mat-select
+          formControlName="status"
+        >
+
+          <mat-option value="PAGADO">
+            Pagado
+          </mat-option>
+
+          <mat-option value="PENDIENTE">
+            Pendiente
+          </mat-option>
+
+          <mat-option value="ANULADO">
+            Anulado
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <div class="form-actions">
+
+        <button
+          matButton
+          type="button"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          matButton="filled"
+          type="button"
+          [disabled]="
+            form.invalid ||
+            loading()
+          "
+          (click)="save()"
+        >
+
+          @if (loading()) {
+
+          Guardando...
+
+          } @else if (editing()) {
+
+          Actualizar
+
+          } @else {
+
+          Registrar pago
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

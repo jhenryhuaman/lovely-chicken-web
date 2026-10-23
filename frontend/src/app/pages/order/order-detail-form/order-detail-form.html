@@ -1,0 +1,197 @@
+<section class="form-page">
+
+  <div class="form-card">
+
+    <div class="form-header">
+
+      @if (editing()) {
+
+      <h1>Editar detalle</h1>
+
+      } @else {
+
+      <h1>Nuevo detalle de pedido</h1>
+
+      }
+
+      <p>
+        Selecciona el pedido y el producto.
+      </p>
+
+    </div>
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+
+    }
+
+    <form [formGroup]="form">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Pedido
+        </mat-label>
+
+        <mat-select
+          formControlName="orderId"
+        >
+
+          <mat-option [value]="0">
+            Seleccionar pedido
+          </mat-option>
+
+          @for (
+          order of orders();
+          track order.idOrder
+          ) {
+
+          <mat-option
+            [value]="order.idOrder"
+          >
+            Pedido #{{ order.idOrder }}
+            - S/ {{ order.total }}
+          </mat-option>
+
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Producto
+        </mat-label>
+
+        <mat-select
+          formControlName="productId"
+        >
+
+          <mat-option [value]="0">
+            Seleccionar producto
+          </mat-option>
+
+          @for (
+          product of products();
+          track product.idProduct
+          ) {
+
+          <mat-option
+            [value]="product.idProduct"
+          >
+            {{ product.name }}
+            - S/ {{ product.price }}
+          </mat-option>
+
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Cantidad
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="1"
+          formControlName="quantity"
+        >
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Precio unitario
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          formControlName="unitPrice"
+          readonly
+        >
+
+        <span matTextPrefix>
+          S/&nbsp;
+        </span>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Subtotal
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          formControlName="subtotal"
+          readonly
+        >
+
+        <span matTextPrefix>
+          S/&nbsp;
+        </span>
+
+      </mat-form-field>
+
+
+      <div class="form-actions">
+
+        <button
+          matButton
+          type="button"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          matButton="filled"
+          type="button"
+          [disabled]="
+            form.invalid ||
+            loading()
+          "
+          (click)="save()"
+        >
+
+          @if (loading()) {
+
+          Guardando...
+
+          } @else if (editing()) {
+
+          Actualizar
+
+          } @else {
+
+          Guardar detalle
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

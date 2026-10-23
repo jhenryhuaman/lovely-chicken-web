@@ -11,8 +11,15 @@
       />
 
       <div class="brand-text">
-        <strong>Lovely Chicken</strong>
-        <span>El verdadero sabor cajamarquino</span>
+
+        <strong>
+          Lovely Chicken
+        </strong>
+
+        <span>
+          El verdadero sabor cajamarquino
+        </span>
+
       </div>
 
     </div>
@@ -26,6 +33,7 @@
     </button>
 
   </header>
+
 
   <div class="workspace">
 
@@ -51,23 +59,29 @@
           Mesas
         </a>
 
-        <div class="nav-pending">
+        <a
+          routerLink="/orders"
+          routerLinkActive="active"
+        >
           Pedidos
-          <small>Próximamente</small>
-        </div>
+        </a>
 
-        <div class="nav-pending">
+        <a
+          routerLink="/payments"
+          routerLinkActive="active"
+        >
           Pagos
-          <small>Próximamente</small>
-        </div>
+        </a>
 
       </nav>
 
     </aside>
 
+
     <main class="content">
 
-      <router-outlet></router-outlet>
+      <router-outlet>
+      </router-outlet>
 
     </main>
 

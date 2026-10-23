@@ -1,0 +1,205 @@
+<section class="form-page">
+
+  <div class="form-card">
+
+    <div class="form-header">
+
+      @if (editing()) {
+
+      <h1>Editar pedido</h1>
+
+      <p>
+        Actualiza la información del pedido.
+      </p>
+
+      } @else {
+
+      <h1>Nuevo pedido</h1>
+
+      <p>
+        Registra un nuevo pedido.
+      </p>
+
+      }
+
+    </div>
+
+    @if (errorMessage()) {
+
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+
+    }
+
+    <form [formGroup]="form">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Tipo de pedido
+        </mat-label>
+
+        <mat-select
+          formControlName="orderType"
+        >
+
+          <mat-option value="MESA">
+            Consumo en mesa
+          </mat-option>
+
+          <mat-option value="LLEVAR">
+            Para llevar
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      @if (
+      form.controls.orderType.value
+      === 'MESA'
+      ) {
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Mesa
+        </mat-label>
+
+        <mat-select
+          formControlName="diningTableId"
+        >
+
+          <mat-option [value]="0">
+            Seleccionar mesa
+          </mat-option>
+
+          @for (
+          table of tables();
+          track table.idTable
+          ) {
+
+          <mat-option
+            [value]="table.idTable"
+          >
+            Mesa {{ table.number }}
+            - {{ table.capacity }} personas
+          </mat-option>
+
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+      }
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Estado
+        </mat-label>
+
+        <mat-select
+          formControlName="status"
+        >
+
+          <mat-option value="PENDIENTE">
+            Pendiente
+          </mat-option>
+
+          <mat-option value="EN_PREPARACION">
+            En preparación
+          </mat-option>
+
+          <mat-option value="ENTREGADO">
+            Entregado
+          </mat-option>
+
+          <mat-option value="CANCELADO">
+            Cancelado
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Total
+        </mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="0"
+          step="0.01"
+          formControlName="total"
+        >
+
+        <span matTextPrefix>
+          S/&nbsp;
+        </span>
+
+        @if (
+        form.controls.total.invalid &&
+        form.controls.total.touched
+        ) {
+
+        <mat-error>
+          El total no puede ser negativo.
+        </mat-error>
+
+        }
+
+      </mat-form-field>
+
+
+      <div class="form-actions">
+
+        <button
+          matButton
+          type="button"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          matButton="filled"
+          type="button"
+          [disabled]="
+            form.invalid ||
+            loading()
+          "
+          (click)="save()"
+        >
+
+          @if (loading()) {
+
+          Guardando...
+
+          } @else if (editing()) {
+
+          Actualizar
+
+          } @else {
+
+          Guardar
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

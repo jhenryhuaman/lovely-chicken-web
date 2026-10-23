@@ -1,0 +1,113 @@
+<section class="payments-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Pagos</h1>
+      <p>Gestión de pagos de Lovely Chicken</p>
+    </div>
+
+    <a
+      class="primary-button"
+      routerLink="/payments/new"
+    >
+      + Nuevo pago
+    </a>
+
+  </div>
+
+  @if (loading()) {
+
+  <div class="message">
+    Cargando pagos...
+  </div>
+
+  } @else if (errorMessage()) {
+
+  <div class="message error">
+    {{ errorMessage() }}
+  </div>
+
+  } @else {
+
+  <div class="payments-grid">
+
+    @for (
+    payment of payments();
+    track payment.idPayment
+    ) {
+
+    <article class="payment-card">
+
+      <div>
+
+        <h2>
+          Pago #{{ payment.idPayment }}
+        </h2>
+
+        <p>
+          {{ payment.paidAt | date:'dd/MM/yyyy HH:mm' }}
+        </p>
+
+      </div>
+
+      <div class="payment-data">
+
+        <p>
+          <strong>Pedido:</strong>
+          #{{ payment.order.idOrder }}
+        </p>
+
+        <p>
+          <strong>Método:</strong>
+          {{ payment.paymentMethod }}
+        </p>
+
+        <p>
+          <strong>Estado:</strong>
+          {{ payment.status }}
+        </p>
+
+        <h3>
+          Monto: S/ {{ payment.amount }}
+        </h3>
+
+      </div>
+
+      <div class="card-actions">
+
+        <a
+          class="secondary-button"
+          [routerLink]="[
+                '/payments/edit',
+                payment.idPayment
+              ]"
+        >
+          Editar
+        </a>
+
+        <button
+          class="delete-button"
+          type="button"
+          (click)="deletePayment(payment)"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+    } @empty {
+
+    <div class="message">
+      No hay pagos registrados.
+    </div>
+
+    }
+
+  </div>
+
+  }
+
+</section>
