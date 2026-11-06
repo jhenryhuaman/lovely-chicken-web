@@ -46,7 +46,21 @@ public class SecurityConfig {
                         )
                 )
 
-                .authorizeHttpRequests(auth -> auth
+                .exceptionHandling(errors -> errors
+                        .authenticationEntryPoint((request, response, exception) -> {
+                            response.setStatus(401);
+                            response.setHeader("WWW-Authenticate", "Bearer");
+                            response.setContentType("application/json");
+                            response.setCharacterEncoding("UTF-8");
+                            response.getWriter().write("""
+                                    {
+                                      "status": 401,
+                                      "error": "Unauthorized",
+                                      "message": "Se requiere un token válido para acceder a este recurso."
+                                    }
+                                    """);
+                        })
+                ).authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(
                                 "/api/auth/login"
